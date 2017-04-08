@@ -4,7 +4,7 @@
 #
 Name     : mozjs38
 Version  : 38.2.1.0
-Release  : 2
+Release  : 3
 URL      : https://people.mozilla.org/~sstangl/mozjs-38.2.1.rc0.tar.bz2
 Source0  : https://people.mozilla.org/~sstangl/mozjs-38.2.1.rc0.tar.bz2
 Summary  : psutil is a cross-platform library for retrieving information onrunning processes and system utilization (CPU, memory, disks, network)in Python.
@@ -63,7 +63,7 @@ dev components for the mozjs38 package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1491679656
+export SOURCE_DATE_EPOCH=1491680344
 pushd js/src
 %configure --disable-static --with-x \
 --with-system-zlib \
@@ -78,11 +78,14 @@ make V=1  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1491679656
+export SOURCE_DATE_EPOCH=1491680344
 rm -rf %{buildroot}
 pushd js/src
 %make_install
 popd
+## make_install_append content
+mv %{buildroot}/usr/lib64/pkgconfig/js.pc %{buildroot}/usr/lib64/pkgconfig/mozjs38.pc
+## make_install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -212,4 +215,4 @@ popd
 /usr/include/mozjs-38/mozilla/unused.h
 /usr/include/mozjs-38/mozilla/utils.h
 /usr/lib64/libmozjs-38.so
-/usr/lib64/pkgconfig/js.pc
+/usr/lib64/pkgconfig/mozjs38.pc
