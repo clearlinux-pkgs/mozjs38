@@ -4,7 +4,7 @@
 #
 Name     : mozjs38
 Version  : 38.2.1.0
-Release  : 1
+Release  : 2
 URL      : https://people.mozilla.org/~sstangl/mozjs-38.2.1.rc0.tar.bz2
 Source0  : https://people.mozilla.org/~sstangl/mozjs-38.2.1.rc0.tar.bz2
 Summary  : psutil is a cross-platform library for retrieving information onrunning processes and system utilization (CPU, memory, disks, network)in Python.
@@ -30,6 +30,7 @@ BuildRequires : python3-dev
 BuildRequires : setuptools
 BuildRequires : zlib-dev
 Patch1: pytest.patch
+Patch2: python.patch
 
 %description
 This directory contains SpiderMonkey 38.
@@ -58,22 +59,26 @@ dev components for the mozjs38 package.
 %prep
 %setup -q -n mozjs-38.0.0
 %patch1 -p1
+%patch2 -p1
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1491678894
+export SOURCE_DATE_EPOCH=1491679656
 pushd js/src
 %configure --disable-static --with-x \
 --with-system-zlib \
 --enable-system-ffi \
 --without-system-nspr \
 --without-system-icu \
---without-intl-api
+--without-intl-api \
+--enable-threadsafe \
+--enable-shared-js \
+--enable-gcgenerational
 make V=1  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1491678894
+export SOURCE_DATE_EPOCH=1491679656
 rm -rf %{buildroot}
 pushd js/src
 %make_install
@@ -90,121 +95,121 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/mozjs-/js-config.h
-/usr/include/mozjs-/js.msg
-/usr/include/mozjs-/js/CallArgs.h
-/usr/include/mozjs-/js/CallNonGenericMethod.h
-/usr/include/mozjs-/js/CharacterEncoding.h
-/usr/include/mozjs-/js/Class.h
-/usr/include/mozjs-/js/Conversions.h
-/usr/include/mozjs-/js/Date.h
-/usr/include/mozjs-/js/Debug.h
-/usr/include/mozjs-/js/GCAPI.h
-/usr/include/mozjs-/js/HashTable.h
-/usr/include/mozjs-/js/HeapAPI.h
-/usr/include/mozjs-/js/Id.h
-/usr/include/mozjs-/js/LegacyIntTypes.h
-/usr/include/mozjs-/js/MemoryMetrics.h
-/usr/include/mozjs-/js/Principals.h
-/usr/include/mozjs-/js/ProfilingFrameIterator.h
-/usr/include/mozjs-/js/ProfilingStack.h
-/usr/include/mozjs-/js/Proxy.h
-/usr/include/mozjs-/js/RequiredDefines.h
-/usr/include/mozjs-/js/RootingAPI.h
-/usr/include/mozjs-/js/SliceBudget.h
-/usr/include/mozjs-/js/StructuredClone.h
-/usr/include/mozjs-/js/TracingAPI.h
-/usr/include/mozjs-/js/TrackedOptimizationInfo.h
-/usr/include/mozjs-/js/TypeDecls.h
-/usr/include/mozjs-/js/UbiNode.h
-/usr/include/mozjs-/js/UbiNodeTraverse.h
-/usr/include/mozjs-/js/Utility.h
-/usr/include/mozjs-/js/Value.h
-/usr/include/mozjs-/js/Vector.h
-/usr/include/mozjs-/js/WeakMapPtr.h
-/usr/include/mozjs-/jsalloc.h
-/usr/include/mozjs-/jsapi.h
-/usr/include/mozjs-/jsbytecode.h
-/usr/include/mozjs-/jsclist.h
-/usr/include/mozjs-/jscpucfg.h
-/usr/include/mozjs-/jsfriendapi.h
-/usr/include/mozjs-/jsperf.h
-/usr/include/mozjs-/jsprf.h
-/usr/include/mozjs-/jsprototypes.h
-/usr/include/mozjs-/jspubtd.h
-/usr/include/mozjs-/jstypes.h
-/usr/include/mozjs-/jsversion.h
-/usr/include/mozjs-/jswrapper.h
-/usr/include/mozjs-/mozilla/Alignment.h
-/usr/include/mozjs-/mozilla/AllocPolicy.h
-/usr/include/mozjs-/mozilla/AlreadyAddRefed.h
-/usr/include/mozjs-/mozilla/Array.h
-/usr/include/mozjs-/mozilla/ArrayUtils.h
-/usr/include/mozjs-/mozilla/Assertions.h
-/usr/include/mozjs-/mozilla/Atomics.h
-/usr/include/mozjs-/mozilla/Attributes.h
-/usr/include/mozjs-/mozilla/BinarySearch.h
-/usr/include/mozjs-/mozilla/BloomFilter.h
-/usr/include/mozjs-/mozilla/Casting.h
-/usr/include/mozjs-/mozilla/ChaosMode.h
-/usr/include/mozjs-/mozilla/Char16.h
-/usr/include/mozjs-/mozilla/CheckedInt.h
-/usr/include/mozjs-/mozilla/Compiler.h
-/usr/include/mozjs-/mozilla/Compression.h
-/usr/include/mozjs-/mozilla/Constants.h
-/usr/include/mozjs-/mozilla/DebugOnly.h
-/usr/include/mozjs-/mozilla/Decimal.h
-/usr/include/mozjs-/mozilla/Endian.h
-/usr/include/mozjs-/mozilla/EnumSet.h
-/usr/include/mozjs-/mozilla/EnumeratedArray.h
-/usr/include/mozjs-/mozilla/FloatingPoint.h
-/usr/include/mozjs-/mozilla/GuardObjects.h
-/usr/include/mozjs-/mozilla/HashFunctions.h
-/usr/include/mozjs-/mozilla/IntegerPrintfMacros.h
-/usr/include/mozjs-/mozilla/IntegerRange.h
-/usr/include/mozjs-/mozilla/IntegerTypeTraits.h
-/usr/include/mozjs-/mozilla/IteratorTraits.h
-/usr/include/mozjs-/mozilla/JSONWriter.h
-/usr/include/mozjs-/mozilla/Likely.h
-/usr/include/mozjs-/mozilla/LinkedList.h
-/usr/include/mozjs-/mozilla/LinuxSignal.h
-/usr/include/mozjs-/mozilla/MacroArgs.h
-/usr/include/mozjs-/mozilla/MacroForEach.h
-/usr/include/mozjs-/mozilla/MathAlgorithms.h
-/usr/include/mozjs-/mozilla/Maybe.h
-/usr/include/mozjs-/mozilla/MaybeOneOf.h
-/usr/include/mozjs-/mozilla/MemoryChecking.h
-/usr/include/mozjs-/mozilla/MemoryReporting.h
-/usr/include/mozjs-/mozilla/Move.h
-/usr/include/mozjs-/mozilla/NullPtr.h
-/usr/include/mozjs-/mozilla/NumericLimits.h
-/usr/include/mozjs-/mozilla/Pair.h
-/usr/include/mozjs-/mozilla/PodOperations.h
-/usr/include/mozjs-/mozilla/Poison.h
-/usr/include/mozjs-/mozilla/Range.h
-/usr/include/mozjs-/mozilla/RangedPtr.h
-/usr/include/mozjs-/mozilla/ReentrancyGuard.h
-/usr/include/mozjs-/mozilla/RefCountType.h
-/usr/include/mozjs-/mozilla/RefPtr.h
-/usr/include/mozjs-/mozilla/ReverseIterator.h
-/usr/include/mozjs-/mozilla/RollingMean.h
-/usr/include/mozjs-/mozilla/SHA1.h
-/usr/include/mozjs-/mozilla/Scoped.h
-/usr/include/mozjs-/mozilla/SegmentedVector.h
-/usr/include/mozjs-/mozilla/SizePrintfMacros.h
-/usr/include/mozjs-/mozilla/SplayTree.h
-/usr/include/mozjs-/mozilla/TaggedAnonymousMemory.h
-/usr/include/mozjs-/mozilla/TemplateLib.h
-/usr/include/mozjs-/mozilla/ThreadLocal.h
-/usr/include/mozjs-/mozilla/ToString.h
-/usr/include/mozjs-/mozilla/TypeTraits.h
-/usr/include/mozjs-/mozilla/TypedEnumBits.h
-/usr/include/mozjs-/mozilla/Types.h
-/usr/include/mozjs-/mozilla/UniquePtr.h
-/usr/include/mozjs-/mozilla/Vector.h
-/usr/include/mozjs-/mozilla/WeakPtr.h
-/usr/include/mozjs-/mozilla/double-conversion.h
-/usr/include/mozjs-/mozilla/unused.h
-/usr/include/mozjs-/mozilla/utils.h
-/usr/lib64/libmozjs-.so
+/usr/include/mozjs-38/js-config.h
+/usr/include/mozjs-38/js.msg
+/usr/include/mozjs-38/js/CallArgs.h
+/usr/include/mozjs-38/js/CallNonGenericMethod.h
+/usr/include/mozjs-38/js/CharacterEncoding.h
+/usr/include/mozjs-38/js/Class.h
+/usr/include/mozjs-38/js/Conversions.h
+/usr/include/mozjs-38/js/Date.h
+/usr/include/mozjs-38/js/Debug.h
+/usr/include/mozjs-38/js/GCAPI.h
+/usr/include/mozjs-38/js/HashTable.h
+/usr/include/mozjs-38/js/HeapAPI.h
+/usr/include/mozjs-38/js/Id.h
+/usr/include/mozjs-38/js/LegacyIntTypes.h
+/usr/include/mozjs-38/js/MemoryMetrics.h
+/usr/include/mozjs-38/js/Principals.h
+/usr/include/mozjs-38/js/ProfilingFrameIterator.h
+/usr/include/mozjs-38/js/ProfilingStack.h
+/usr/include/mozjs-38/js/Proxy.h
+/usr/include/mozjs-38/js/RequiredDefines.h
+/usr/include/mozjs-38/js/RootingAPI.h
+/usr/include/mozjs-38/js/SliceBudget.h
+/usr/include/mozjs-38/js/StructuredClone.h
+/usr/include/mozjs-38/js/TracingAPI.h
+/usr/include/mozjs-38/js/TrackedOptimizationInfo.h
+/usr/include/mozjs-38/js/TypeDecls.h
+/usr/include/mozjs-38/js/UbiNode.h
+/usr/include/mozjs-38/js/UbiNodeTraverse.h
+/usr/include/mozjs-38/js/Utility.h
+/usr/include/mozjs-38/js/Value.h
+/usr/include/mozjs-38/js/Vector.h
+/usr/include/mozjs-38/js/WeakMapPtr.h
+/usr/include/mozjs-38/jsalloc.h
+/usr/include/mozjs-38/jsapi.h
+/usr/include/mozjs-38/jsbytecode.h
+/usr/include/mozjs-38/jsclist.h
+/usr/include/mozjs-38/jscpucfg.h
+/usr/include/mozjs-38/jsfriendapi.h
+/usr/include/mozjs-38/jsperf.h
+/usr/include/mozjs-38/jsprf.h
+/usr/include/mozjs-38/jsprototypes.h
+/usr/include/mozjs-38/jspubtd.h
+/usr/include/mozjs-38/jstypes.h
+/usr/include/mozjs-38/jsversion.h
+/usr/include/mozjs-38/jswrapper.h
+/usr/include/mozjs-38/mozilla/Alignment.h
+/usr/include/mozjs-38/mozilla/AllocPolicy.h
+/usr/include/mozjs-38/mozilla/AlreadyAddRefed.h
+/usr/include/mozjs-38/mozilla/Array.h
+/usr/include/mozjs-38/mozilla/ArrayUtils.h
+/usr/include/mozjs-38/mozilla/Assertions.h
+/usr/include/mozjs-38/mozilla/Atomics.h
+/usr/include/mozjs-38/mozilla/Attributes.h
+/usr/include/mozjs-38/mozilla/BinarySearch.h
+/usr/include/mozjs-38/mozilla/BloomFilter.h
+/usr/include/mozjs-38/mozilla/Casting.h
+/usr/include/mozjs-38/mozilla/ChaosMode.h
+/usr/include/mozjs-38/mozilla/Char16.h
+/usr/include/mozjs-38/mozilla/CheckedInt.h
+/usr/include/mozjs-38/mozilla/Compiler.h
+/usr/include/mozjs-38/mozilla/Compression.h
+/usr/include/mozjs-38/mozilla/Constants.h
+/usr/include/mozjs-38/mozilla/DebugOnly.h
+/usr/include/mozjs-38/mozilla/Decimal.h
+/usr/include/mozjs-38/mozilla/Endian.h
+/usr/include/mozjs-38/mozilla/EnumSet.h
+/usr/include/mozjs-38/mozilla/EnumeratedArray.h
+/usr/include/mozjs-38/mozilla/FloatingPoint.h
+/usr/include/mozjs-38/mozilla/GuardObjects.h
+/usr/include/mozjs-38/mozilla/HashFunctions.h
+/usr/include/mozjs-38/mozilla/IntegerPrintfMacros.h
+/usr/include/mozjs-38/mozilla/IntegerRange.h
+/usr/include/mozjs-38/mozilla/IntegerTypeTraits.h
+/usr/include/mozjs-38/mozilla/IteratorTraits.h
+/usr/include/mozjs-38/mozilla/JSONWriter.h
+/usr/include/mozjs-38/mozilla/Likely.h
+/usr/include/mozjs-38/mozilla/LinkedList.h
+/usr/include/mozjs-38/mozilla/LinuxSignal.h
+/usr/include/mozjs-38/mozilla/MacroArgs.h
+/usr/include/mozjs-38/mozilla/MacroForEach.h
+/usr/include/mozjs-38/mozilla/MathAlgorithms.h
+/usr/include/mozjs-38/mozilla/Maybe.h
+/usr/include/mozjs-38/mozilla/MaybeOneOf.h
+/usr/include/mozjs-38/mozilla/MemoryChecking.h
+/usr/include/mozjs-38/mozilla/MemoryReporting.h
+/usr/include/mozjs-38/mozilla/Move.h
+/usr/include/mozjs-38/mozilla/NullPtr.h
+/usr/include/mozjs-38/mozilla/NumericLimits.h
+/usr/include/mozjs-38/mozilla/Pair.h
+/usr/include/mozjs-38/mozilla/PodOperations.h
+/usr/include/mozjs-38/mozilla/Poison.h
+/usr/include/mozjs-38/mozilla/Range.h
+/usr/include/mozjs-38/mozilla/RangedPtr.h
+/usr/include/mozjs-38/mozilla/ReentrancyGuard.h
+/usr/include/mozjs-38/mozilla/RefCountType.h
+/usr/include/mozjs-38/mozilla/RefPtr.h
+/usr/include/mozjs-38/mozilla/ReverseIterator.h
+/usr/include/mozjs-38/mozilla/RollingMean.h
+/usr/include/mozjs-38/mozilla/SHA1.h
+/usr/include/mozjs-38/mozilla/Scoped.h
+/usr/include/mozjs-38/mozilla/SegmentedVector.h
+/usr/include/mozjs-38/mozilla/SizePrintfMacros.h
+/usr/include/mozjs-38/mozilla/SplayTree.h
+/usr/include/mozjs-38/mozilla/TaggedAnonymousMemory.h
+/usr/include/mozjs-38/mozilla/TemplateLib.h
+/usr/include/mozjs-38/mozilla/ThreadLocal.h
+/usr/include/mozjs-38/mozilla/ToString.h
+/usr/include/mozjs-38/mozilla/TypeTraits.h
+/usr/include/mozjs-38/mozilla/TypedEnumBits.h
+/usr/include/mozjs-38/mozilla/Types.h
+/usr/include/mozjs-38/mozilla/UniquePtr.h
+/usr/include/mozjs-38/mozilla/Vector.h
+/usr/include/mozjs-38/mozilla/WeakPtr.h
+/usr/include/mozjs-38/mozilla/double-conversion.h
+/usr/include/mozjs-38/mozilla/unused.h
+/usr/include/mozjs-38/mozilla/utils.h
+/usr/lib64/libmozjs-38.so
 /usr/lib64/pkgconfig/js.pc

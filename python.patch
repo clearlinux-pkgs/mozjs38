@@ -1,0 +1,15 @@
+--- mozjs-38.0.0/js/src/configure~	2015-09-17 20:38:10.000000000 +0000
++++ mozjs-38.0.0/js/src/configure	2017-04-08 19:23:28.210553086 +0000
+@@ -1662,9 +1662,9 @@
+ 
+ fi
+ 
+-MOZILLA_VERSION=`$PYTHON $srcdir/python/mozbuild/mozbuild/milestone.py --topsrcdir $srcdir`
+-MOZILLA_UAVERSION=`$PYTHON $srcdir/python/mozbuild/mozbuild/milestone.py --topsrcdir $srcdir --uaversion`
+-MOZILLA_SYMBOLVERSION=`$PYTHON $srcdir/python/mozbuild/mozbuild/milestone.py --topsrcdir $srcdir --symbolversion`
++MOZILLA_VERSION=`python $srcdir/python/mozbuild/mozbuild/milestone.py --topsrcdir $srcdir`
++MOZILLA_UAVERSION=`python $srcdir/python/mozbuild/mozbuild/milestone.py --topsrcdir $srcdir --uaversion`
++MOZILLA_SYMBOLVERSION=`python $srcdir/python/mozbuild/mozbuild/milestone.py --topsrcdir $srcdir --symbolversion`
+ 
+ cat >> confdefs.pytmp <<EOF
+     (''' MOZILLA_VERSION ''', r''' "$MOZILLA_VERSION" ''')

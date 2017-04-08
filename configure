@@ -4,5 +4,6 @@
 --without-system-nspr
 --without-system-icu
 --without-intl-api
-
-
+--enable-threadsafe
+--enable-shared-js 
+--enable-gcgenerational

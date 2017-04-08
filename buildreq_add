@@ -3,3 +3,5 @@
 nspr-dev
 icu4c-dev
 zlib-dev
+python3-dev
+python-dev
