@@ -4,7 +4,7 @@
 #
 Name     : mozjs38
 Version  : 38.2.1.0
-Release  : 3
+Release  : 4
 URL      : https://people.mozilla.org/~sstangl/mozjs-38.2.1.rc0.tar.bz2
 Source0  : https://people.mozilla.org/~sstangl/mozjs-38.2.1.rc0.tar.bz2
 Summary  : psutil is a cross-platform library for retrieving information onrunning processes and system utilization (CPU, memory, disks, network)in Python.
@@ -31,6 +31,7 @@ BuildRequires : setuptools
 BuildRequires : zlib-dev
 Patch1: pytest.patch
 Patch2: python.patch
+Patch3: install-copy-files.patch
 
 %description
 This directory contains SpiderMonkey 38.
@@ -60,10 +61,11 @@ dev components for the mozjs38 package.
 %setup -q -n mozjs-38.0.0
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1491680344
+export SOURCE_DATE_EPOCH=1491681638
 pushd js/src
 %configure --disable-static --with-x \
 --with-system-zlib \
@@ -78,7 +80,7 @@ make V=1  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1491680344
+export SOURCE_DATE_EPOCH=1491681638
 rm -rf %{buildroot}
 pushd js/src
 %make_install

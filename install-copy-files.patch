@@ -1,0 +1,11 @@
+--- mozjs-38.0.0/python/mozbuild/mozbuild/backend/recursivemake.py~	2015-09-17 20:12:22.000000000 +0000
++++ mozjs-38.0.0/python/mozbuild/mozbuild/backend/recursivemake.py	2017-04-08 19:55:51.063492240 +0000
+@@ -1172,7 +1172,7 @@
+             for f in strings:
+                 source = mozpath.normpath(os.path.join(obj.srcdir, f))
+                 dest = mozpath.join(reltarget, path, mozpath.basename(f))
+-                install_manifest.add_symlink(source, dest)
++                install_manifest.add_copy(source, dest)
+ 
+     def _write_manifests(self, dest, manifests):
+         man_dir = mozpath.join(self.environment.topobjdir, '_build_manifests',
