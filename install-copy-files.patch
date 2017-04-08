@@ -9,3 +9,41 @@
  
      def _write_manifests(self, dest, manifests):
          man_dir = mozpath.join(self.environment.topobjdir, '_build_manifests',
+--- mozjs-38.0.0/python/mozbuild/mozbuild/backend/recursivemake.py~	2017-04-08 19:55:51.000000000 +0000
++++ mozjs-38.0.0/python/mozbuild/mozbuild/backend/recursivemake.py	2017-04-08 20:02:53.624154497 +0000
+@@ -796,7 +796,7 @@
+             return
+ 
+         for source, dest, _ in self._walk_hierarchy(obj, exports):
+-            self._install_manifests['dist_include'].add_symlink(source, dest)
++            self._install_manifests['dist_include'].add_copy(source, dest)
+ 
+             if not os.path.exists(source):
+                 raise Exception('File listed in EXPORTS does not exist: %s' % source)
+@@ -805,7 +805,7 @@
+         for path, files in obj.srcdir_files.iteritems():
+             for source in files:
+                 dest = '%s/%s' % (path, mozpath.basename(source))
+-                self._install_manifests['tests'].add_symlink(source, dest)
++                self._install_manifests['tests'].add_copy(source, dest)
+ 
+         for path, patterns in obj.srcdir_pattern_files.iteritems():
+             for p in patterns:
+@@ -834,7 +834,7 @@
+                 dep_file = mozpath.join(dep_path, mozpath.basename(source) + '.pp')
+                 self._install_manifests['dist_bin'].add_preprocess(source, dest, dep_file, marker='%', defines=obj.defines)
+             else:
+-                self._install_manifests['dist_bin'].add_symlink(source, dest)
++                self._install_manifests['dist_bin'].add_copy(source, dest)
+ 
+             if not os.path.exists(source):
+                 raise Exception('File listed in RESOURCE_FILES does not exist: %s' % source)
+@@ -893,7 +893,7 @@
+         manifest = self._install_manifests['tests']
+ 
+         for source, dest, _ in self._walk_hierarchy(obj, obj.modules):
+-            manifest.add_symlink(source, mozpath.join('modules', dest))
++            manifest.add_scopy(source, mozpath.join('modules', dest))
+ 
+     def _handle_idl_manager(self, manager):
+         build_files = self._install_manifests['xpidl']
