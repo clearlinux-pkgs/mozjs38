@@ -1,0 +1,34 @@
+Configure miss: ranlib
+Configure miss: ar
+Configure miss: whether the C compiler (gcc -O2 -fPIC -g -feliminate-unused-debug-types  -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wl,--copy-dt-needed-entries -Wno-error -Wl,-z -Wl,now -Wl,-z -Wl,relro -Wl,-z,max-page-size=0x1000 -ftree-vectorize -m64 -march=westmere  -fasynchronous-unwind-tables -fno-omit-frame-pointer -Wp,-D_REENTRANT  -O3 -falign-functions=32 -fno-semantic-interposition  ) is a cross-compiler
+Configure miss: whether the C++ compiler (g++ -O2 -fPIC -g -feliminate-unused-debug-types  -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wl,--copy-dt-needed-entries -Wno-error -Wl,-z -Wl,now -Wl,-z -Wl,relro -Wl,-z,max-page-size=0x1000 -ftree-vectorize -m64 -march=westmere  -fasynchronous-unwind-tables -fno-omit-frame-pointer -Wp,-D_REENTRANT  -O3 -falign-functions=32 -fno-semantic-interposition  ) is a cross-compiler
+Configure miss: x86_64-clr-linux-gnu-as
+Configure miss: x86_64-clr-linux-gnu-as
+Configure miss: x86_64-clr-linux-gnu-ld
+Configure miss: x86_64-clr-linux-gnu-ld
+Configure miss: x86_64-clr-linux-gnu-strip
+Configure miss: x86_64-clr-linux-gnu-strip
+Configure miss: x86_64-clr-linux-gnu-windres
+Configure miss: x86_64-clr-linux-gnu-windres
+Configure miss: x86_64-clr-linux-gnu-otool
+Configure miss: x86_64-clr-linux-gnu-otool
+Configure miss: sb-conf
+Configure miss: ve
+Configure miss: tar archiver... checking for gnutar
+Configure miss: gmake
+Configure miss: X
+Configure miss: machine/endian.h
+Configure miss: sys/isa_defs.h
+Configure miss: gcc c++0x headers bug without rtti
+Configure miss: host gcc c++0x headers bug without rtti
+Configure miss: gcc PR49911
+Configure miss: llvm pr8927
+Configure miss: opendir in -ldir
+Configure miss: sys/byteorder.h
+Configure miss: compat.h
+Configure miss: gethostbyname_r in -lc_r
+Configure miss: pthread_create in -lpthreads
+Configure miss: _getc_nolock
+Configure miss: sqrt1pm1
+Configure miss: whether va_list can be copied by value
+Configure miss: malloc_size

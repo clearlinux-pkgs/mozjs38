@@ -4,13 +4,14 @@
 #
 Name     : mozjs38
 Version  : 38.2.1.0
-Release  : 6
+Release  : 7
 URL      : https://people.mozilla.org/~sstangl/mozjs-38.2.1.rc0.tar.bz2
 Source0  : https://people.mozilla.org/~sstangl/mozjs-38.2.1.rc0.tar.bz2
 Summary  : psutil is a cross-platform library for retrieving information onrunning processes and system utilization (CPU, memory, disks, network)in Python.
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSD-3-Clause-Clear GPL-2.0 LGPL-2.0 LGPL-2.1 MIT MPL-2.0-no-copyleft-exception
 Requires: mozjs38-bin
+Requires: mozjs38-lib
 Requires: psutil
 Requires: py
 Requires: pyOpenSSL
@@ -34,10 +35,10 @@ Patch2: python.patch
 Patch3: install-copy-files.patch
 
 %description
-This directory contains SpiderMonkey 38.
-This release is based on a revision of Mozilla 38:
-http://hg.mozilla.org/releases/
-The changes in the patches/ directory were applied.
+your system under test with mock objects and make assertions about how they
+        have been used.
+        
+        mock is now part of the Python standard library, available as `unittest.mock <
 
 %package bin
 Summary: bin components for the mozjs38 package.
@@ -50,11 +51,20 @@ bin components for the mozjs38 package.
 %package dev
 Summary: dev components for the mozjs38 package.
 Group: Development
+Requires: mozjs38-lib
 Requires: mozjs38-bin
 Provides: mozjs38-devel
 
 %description dev
 dev components for the mozjs38 package.
+
+
+%package lib
+Summary: lib components for the mozjs38 package.
+Group: Libraries
+
+%description lib
+lib components for the mozjs38 package.
 
 
 %prep
@@ -64,8 +74,15 @@ dev components for the mozjs38 package.
 %patch3 -p1
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1491682692
+export SOURCE_DATE_EPOCH=1500696378
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 pushd js/src
 %configure --disable-static --with-x \
 --with-system-zlib \
@@ -80,7 +97,7 @@ make V=1  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1491682692
+export SOURCE_DATE_EPOCH=1500696378
 rm -rf %{buildroot}
 pushd js/src
 %make_install
@@ -216,5 +233,8 @@ mv %{buildroot}/usr/lib64/pkgconfig/js.pc %{buildroot}/usr/lib64/pkgconfig/mozjs
 /usr/include/mozjs-38/mozilla/double-conversion.h
 /usr/include/mozjs-38/mozilla/unused.h
 /usr/include/mozjs-38/mozilla/utils.h
-/usr/lib64/libmozjs-38.so
 /usr/lib64/pkgconfig/mozjs-38.pc
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libmozjs-38.so
