@@ -4,7 +4,7 @@
 #
 Name     : mozjs38
 Version  : 38.2.1.0
-Release  : 7
+Release  : 8
 URL      : https://people.mozilla.org/~sstangl/mozjs-38.2.1.rc0.tar.bz2
 Source0  : https://people.mozilla.org/~sstangl/mozjs-38.2.1.rc0.tar.bz2
 Summary  : psutil is a cross-platform library for retrieving information onrunning processes and system utilization (CPU, memory, disks, network)in Python.
@@ -30,6 +30,9 @@ BuildRequires : python-dev
 BuildRequires : python3-dev
 BuildRequires : setuptools
 BuildRequires : zlib-dev
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 Patch1: pytest.patch
 Patch2: python.patch
 Patch3: install-copy-files.patch
@@ -78,7 +81,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1500696378
+export SOURCE_DATE_EPOCH=1501084420
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
@@ -97,7 +100,7 @@ make V=1  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1500696378
+export SOURCE_DATE_EPOCH=1501084420
 rm -rf %{buildroot}
 pushd js/src
 %make_install
