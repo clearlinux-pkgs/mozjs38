@@ -4,7 +4,7 @@
 #
 Name     : mozjs38
 Version  : 38.2.1.0
-Release  : 8
+Release  : 9
 URL      : https://people.mozilla.org/~sstangl/mozjs-38.2.1.rc0.tar.bz2
 Source0  : https://people.mozilla.org/~sstangl/mozjs-38.2.1.rc0.tar.bz2
 Summary  : psutil is a cross-platform library for retrieving information onrunning processes and system utilization (CPU, memory, disks, network)in Python.
